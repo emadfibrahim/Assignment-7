@@ -1,0 +1,350 @@
+clc;clear all;close all;
+iterations=20000;
+y = [607, 583, 521, 494, 369, 782, 570, 678, 467, 620, 425, 395, 346, 361, 310, 300, 382, 294, 315, 323, 421, 339, 398, 328, 335, 291, 329, 310, 294, 321, 286, 349, 279, 268, 293, 310, 259, 241, 243, 272, 247, 275, 220, 245, 268, 357, 273, 301, 322, 276, 401, 368, 149, 507, 411, 362, 358, 355, 362, 324, 332, 268, 259, 274, 248, 254, 242, 286, 276, 237, 259, 251, 239, 247, 260, 237, 206, 242, 361, 267, 245, 331, 357, 284, 263, 244, 317, 225, 254, 253, 251, 314, 239, 248, 250, 200, 256, 233, 427, 391, 331, 395, 337, 392, 352, 381, 330, 368, 381, 316, 335, 316, 302, 375, 361, 330, 351, 186, 221, 278, 244, 218, 126, 269, 238, 194, 384, 154, 555, 387, 317, 365, 357, 390, 320, 316, 297, 354, 266, 279, 327, 285, 258, 267, 226, 237, 264, 510, 490, 458, 425, 522, 927, 555, 550, 516, 548, 560, 545, 633, 496, 498, 223, 222, 309, 244, 207, 258, 255, 281, 258, 226, 257, 263, 266, 238, 249, 340, 247, 216, 241, 239, 226, 273, 235, 251, 290, 473, 416, 451, 475, 406, 349, 401, 334, 446, 401, 252, 266, 210, 228, 250, 265, 236, 289, 244, 327, 274, 223, 327, 307, 338, 345, 381, 369, 445, 296, 303, 326, 321, 309, 307, 319, 288, 299, 284, 278, 310, 282, 275, 372, 295, 306, 303, 285, 316, 294, 284, 324, 264, 278, 369, 254, 306, 237, 439, 287, 285, 261, 299, 311, 265, 292, 282, 271, 268, 270, 259, 269, 249, 261, 425, 291, 291, 441, 222, 347, 244, 232, 272, 264, 190, 219, 317, 232, 256, 185, 210, 213, 202, 226, 250, 238, 252, 233, 221, 220, 287, 267, 264, 273, 304, 294, 236, 200, 219, 276, 287, 365, 438, 420, 396, 359, 405, 397, 383, 360, 387, 429, 358, 459, 371, 368, 452, 358, 371];
+ind = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5,5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10,10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11,11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14, 14,14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18,19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23, 23, 23,23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,24, 24, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27,28, 28, 28, 28, 28, 28, 28, 28, 28, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 30, 30, 30, 30, 30, 30,31, 31, 31, 31, 31, 32, 32, 32, 32, 32, 33, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34,34, 34, 34, 34];
+y_cell = {[607, 583, 521, 494, 369], [782, 570, 678, 467, 620], [425, 395, 346, 361, 310, 300, 382, 294, 315], [323], [421, 339, 398, 328, 335, 291, 329, 310, 294, 321, 286, 349, 279, 268, 293, 310], [259, 241, 243, 272, 247, 275, 220, 245, 268], [357, 273, 301, 322, 276], [401, 368, 149, 507, 411], [362, 358, 355, 362, 324], [332, 268, 259, 274, 248, 254, 242, 286, 276, 237, 259, 251, 239, 247, 260, 237, 206, 242], [361, 267, 245, 331, 357, 284, 263, 244, 317, 225, 254, 253, 251, 314, 239, 248, 250, 200, 256, 233], [427, 391, 331, 395, 337, 392, 352, 381, 330, 368, 381, 316, 335, 316, 302, 375, 361, 330, 351, 186], [221, 278, 244, 218, 126, 269, 238, 194, 384, 154], [555, 387, 317, 365, 357, 390, 320, 316, 297, 354, 266, 279, 327], [285, 258, 267, 226, 237, 264], [510, 490, 458, 425, 522], [927, 555, 550, 516, 548], [560, 545, 633, 496, 498], [223, 222, 309, 244, 207], [258, 255, 281, 258, 226, 257, 263, 266, 238, 249, 340, 247, 216, 241, 239, 226, 273, 235, 251, 290], [473, 416, 451, 475, 406, 349, 401, 334, 446, 401], [252, 266, 210, 228, 250, 265, 236, 289, 244, 327, 274, 223], [327, 307, 338, 345, 381, 369, 445, 296, 303, 326], [321, 309, 307, 319, 288, 299, 284, 278, 310, 282, 275, 372, 295, 306, 303, 285, 316, 294, 284, 324], [264, 278, 369, 254, 306, 237, 439, 287, 285, 261, 299, 311, 265], [292, 282, 271, 268, 270], [259, 269, 249, 261, 425], [291, 291, 441, 222, 347, 244, 232, 272, 264], [190, 219, 317, 232, 256, 185, 210, 213, 202, 226], [250, 238, 252, 233, 221, 220], [287, 267, 264, 273, 304], [294, 236, 200, 219, 276], [287], [365, 438, 420, 396, 359, 405, 397, 383, 360, 387, 429, 358, 459, 371, 368, 452, 358, 371]};
+child= [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0];
+x_cell={[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1], [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,15, 16, 17, 18], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [1, 2, 3, 4, 5, 6,7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4,5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6, 7, 8, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]};
+x=[1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+
+I = length(y);
+J = 34;
+logy = log(y);
+mean_logy = mean(logy);
+std_logy = std(logy);
+
+initial=ones(75,1);
+posterior=slicesample(initial,iterations,'logpdf',@(beta) log_post(beta,y_cell,logy,x_cell,x,child),'burnin',1000,'thin',50);
+%%%%%assignment 6%%%%%%%%
+log_post2=@(beta) logprior_theta2(beta(1:34),beta(36),beta(37),beta(38),child)+loglikelihood2(y_cell,logy,beta(1:34),beta(35))+logprior_mu(beta(36))+logprior_tau(beta(37))+logprior_sigma(beta(35))+logprior_phi(beta(38));
+%%%beta 35=sigma
+initial2=ones(1,38);
+posterior2=slicesample(initial2,iterations,'logpdf',log_post2,'burnin',1000,'thin',50);
+
+%%%%%%%%%%%%%%%%
+
+x_mean=mean(x);
+std_x=std(x);
+mu0_samp=posterior(:,69)+posterior(:,71)*child;
+mu1_samp=posterior(:,70)+posterior(:,72)*child;
+theta0(:,1:J)=mu0_samp+posterior(:,73).*posterior(:,1:34);
+theta1(:,1:J)=mu1_samp+posterior(:,74).*posterior(:,35:68);
+sigma2_samp=std_logy.*posterior(:,75);
+
+theta02_samp=std_logy.*theta0+mean_logy;
+theta12_samp=std_logy.*theta1;
+theta03_samp=theta02_samp-theta12_samp*(x_mean./std_x);%%theta0 unscaled
+theta13_samp=theta12_samp./std_x;%%%%theta1_unscaled
+
+%%%%%%%%%%%%%%%%%%%%%%%Task 3%%%%%%%%%%%%%%%%%%
+fprintf('-.-.-.-.-.-.-.-.-.- Task 3 .-.-.-.-.-.-.-.-.-.-.-\n');
+mu_y_samp_1=exp(theta03_samp+1*theta13_samp+((sigma2_samp).^2)./2);
+mu_y_samp_2=exp(theta03_samp+2*theta13_samp+((sigma2_samp).^2)./2);
+mu_y_samp_3=exp(theta03_samp+3*theta13_samp+((sigma2_samp).^2)./2);
+mu_y_samp_4=exp(theta03_samp+4*theta13_samp+((sigma2_samp).^2)./2);
+mu_y_samp_5=exp(theta03_samp+5*theta13_samp+((sigma2_samp).^2)./2);
+figure(1)
+%%%first attempt
+h1=histogram(mu_y_samp_1(:,1),200,'normalization','pdf','DisplayStyle','stairs','EdgeColor','b');
+title("First Individual")
+hold on;
+mean1=mean(mu_y_samp_1(:,1));
+median1=median(mu_y_samp_1(:,1));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('For first Individual (Oliver) the first attempt: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+h2=histogram(mu_y_samp_5(:,1),'normalization','pdf','DisplayStyle','stairs','EdgeColor','r');
+hold off;
+mean1=mean(mu_y_samp_5(:,1));
+median1=median(mu_y_samp_5(:,1));
+[a b]=max(h2.Values);
+mode1=b*h2.BinWidth+h2.BinLimits(1);
+CI=HDI(h2,0.95);
+fprintf('For first Individual (Oliver) the fifth attempt: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+grid on;
+legend('x=1',' x=5');
+%%%third Individual
+figure(2)
+h1=histogram(mu_y_samp_1(:,3),'normalization','pdf','DisplayStyle','stairs','EdgeColor','b');
+title("Third Individual")
+hold on;
+mean1=mean(mu_y_samp_1(:,3));
+median1=median(mu_y_samp_1(:,3));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('For Third Individual (Jesper) the first attempt: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+h2=histogram(mu_y_samp_5(:,3),200,'normalization','pdf','DisplayStyle','stairs','EdgeColor','r');
+hold off;
+mean1=mean(mu_y_samp_5(:,3));
+median1=median(mu_y_samp_5(:,3));
+[a b]=max(h2.Values);
+mode1=b*h2.BinWidth+h2.BinLimits(1);
+CI=HDI(h2,0.95);
+fprintf('For third Individual (Jesper) the fifth attempt: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+grid on;
+legend('x=1',' x=5');
+%%%fourth Individual
+figure(3)
+h1=histogram(mu_y_samp_1(:,4),200,'normalization','pdf','DisplayStyle','stairs','EdgeColor','b');
+title("Fifth Individual")
+hold on;
+mean1=mean(mu_y_samp_1(:,4));
+median1=median(mu_y_samp_1(:,4));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('For fourth Individual (Dude) the first attempt: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+h2=histogram(mu_y_samp_5(:,4),200,'normalization','pdf','DisplayStyle','stairs','EdgeColor','r');
+hold off;
+mean1=mean(mu_y_samp_5(:,4));
+median1=median(mu_y_samp_5(:,4));
+[a b]=max(h2.Values);
+mode1=b*h2.BinWidth+h2.BinLimits(1);
+CI=HDI(h2,0.95);
+fprintf('For fourth Individual (Dude) the fifth attempt: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+grid on;
+legend('x=1',' x=5');
+%%%%%%%%%%%%%%%%%%%%%%%Task 3_Optional%%%%%%%%%%%%%%%%%%%%
+figno=4;
+
+start=1;
+endd=2000;
+% start=iterations-1999; 
+% endd=iterations;
+figure(figno);
+for m=[1 3 4]
+  ff=['j=' num2str(m)];
+  figure(figno);
+ 
+    mm=1;
+    for k=0:0.1:21
+        
+       mu_y_samp_cred(:,mm)=exp(theta03_samp(start:10:endd,m)+k*theta13_samp(start:10:endd,m)+((sigma2_samp(start:10:endd)).^2)./2);
+       mm=mm+1;
+    end
+    ss=size(mu_y_samp_cred);
+    for l=1:1:ss(1)
+        plot(0:0.1:21,mu_y_samp_cred(l,:),'b');
+        hold on;
+    end
+    
+    ss=y_cell(m);
+    zlogy=(log(cell2mat(ss))-mean(logy)) ./ std(logy);
+    
+    scatter(1:length(cell2mat(ss)),cell2mat(ss),'filled','LineWidth',3,'MarkerEdgeColor',[1 0 0],'MarkerFaceColor',[1 0 0]);
+    title(ff)
+    ylabel('reaction time')
+    xlabel('attempt nr');
+    ylim([100,800])
+    grid on;
+    hold off;
+    figno=figno+1;
+ 
+end
+%%%%%%%%%%%%%%%%Task 5%%%%%%%%
+sigma2_samp_assignment6=1.*posterior2(:,35);
+sigma2_samp=posterior(:,75);
+
+fprintf('-.-.-.-.-.-.-.-.-.- Task 5 .-.-.-.-.-.-.-.-.-.-.-\n');
+figure(7)
+h1=histogram(sigma2_samp_assignment6,200,'normalization','pdf','DisplayStyle','stairs','EdgeColor','b');
+title("Sigma")
+hold on;
+mean1=mean(mu_y_samp_1(:,1));
+median1=median(mu_y_samp_1(:,1));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('Sigma of Assignment 6: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+h2=histogram(sigma2_samp,200,'normalization','pdf','DisplayStyle','stairs','EdgeColor','r');
+hold off;
+mean1=mean(mu_y_samp_5(:,1));
+median1=median(mu_y_samp_5(:,1));
+[a b]=max(h2.Values);
+mode1=b*h2.BinWidth+h2.BinLimits(1);
+CI=HDI(h2,0.95);
+fprintf('Sigma of Assignment 7: mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+grid on;
+legend('Assignment 6','Assignment 7');
+%%%%%%%%%%%%%%%%%%%%%%%%EXTRA%%%%%%%%%%%%%%%%%%%%%%%%
+
+fprintf('-.-.-.-.-.-.-.-.-.- Task Extra .-.-.-.-.-.-.-.-.-.-.-\n');
+figure(8)
+h1=histogram(exp(theta13_samp(:,1)),200,'normalization','pdf');
+title("exp(theta1(1))")
+mean1=mean(exp(theta13_samp(:,1)));
+median1=median(exp(theta13_samp(:,1)));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('for exp(theta1(1)): mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+%%%%
+figure(9)
+h1=histogram(exp(theta13_samp(:,3)),200,'normalization','pdf');
+title("exp(theta1(3))")
+mean1=mean(exp(theta13_samp(:,3)));
+median1=median(exp(theta13_samp(:,3)));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('for exp(theta1(3)): mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+
+%%%
+figure(10)
+h1=histogram(exp(theta13_samp(:,4)),200,'normalization','pdf');
+title("exp(theta1(4))")
+mean1=mean(exp(theta13_samp(:,4)));
+median1=median(exp(theta13_samp(:,4)));
+[a b]=max(h1.Values);
+mode1=b*h1.BinWidth+h1.BinLimits(1);
+CI=HDI(h1,0.95);
+fprintf('for exp(theta1(3)): mean=%.3f,median=%.3f,mode=%.3f\n',mean1,median1,mode1);
+fprintf('HDI=[%.3f, %.3f]\n',CI(1),CI(2));
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function r=logprior_theta(theta,mu,tau)
+r=sum(-log(tau)-0.5 *((theta(1:34)-mu)./tau).^2);
+end
+%
+function r=logprior_sigma(sigma)
+if sigma >0
+    r = 0;
+else
+    r = -inf;
+end
+end
+ 
+%
+function r=logprior_mu(mu)
+r=log(1);
+end
+%
+function r=logprior_tau(tau)
+if tau >0
+    r = 0;
+else
+    r = -inf;
+end
+
+end
+
+
+
+function r=logprior_phi(phi)
+% r=log(double(phi>0));
+r=log(1);
+
+
+end
+
+
+
+function r=loglikelihood(y_cell,logy,beta,x_cell,x,child)
+
+
+eta0 = beta(1:34);
+b00 = beta(69);
+b01 = beta(71);
+eta1 = beta(35:68);
+b10 = beta(70);
+b11 = beta(72);
+sigma = beta(75);
+tau0 = beta(73);
+tau1 = beta(74);
+
+mu0 = b00 + b01*child;
+mu1 = b10 + b11*child;
+
+
+theta0 = mu0 + eta0*tau0;
+theta1 = mu1 + eta1*tau1;%%%need to check to make both of them 
+
+r=0;
+s=size(y_cell);
+for l=1:1:s(2) 
+    ss=y_cell(l);
+    xx=x_cell(l);
+    zlogy=(log(cell2mat(ss))-mean(logy)) ./ std(logy);
+    zx=((cell2mat(xx))-mean(x)) ./ std(x);
+    for m=1:1:length(zlogy)
+     mu = theta0(l) + theta1(l)*zx(m);
+    r=r+ -log(sigma) - 0.5 *((zlogy(m) - mu)/sigma)^2;
+    end
+end
+end
+
+
+%%%a6%%%
+
+
+function r=logprior_theta2(theta,mu,tau,phi,child)
+r=sum(-log(tau)-0.5 *((theta(1:34)-(mu+phi.*child))./tau).^2);
+end
+
+
+function r=loglikelihood2(y_cell,logy,theta,sigma)
+
+r=0;
+s=size(y_cell);
+for l=1:1:s(2) 
+    ss=y_cell(l);
+    zlogy=(log(cell2mat(ss))-mean(logy)) ./ std(logy);
+    for m=1:1:length(zlogy)
+    r=r+ -log(sigma) - 0.5 *((zlogy(m) - theta(l))/sigma)^2;
+    end
+end
+end
+
+%%%
+
+
+function lpost=log_post(beta,y_cell,logy,x_cell,x,child) 
+
+sigma = beta(75);
+tau0 = beta(74);
+tau1 = beta(75);
+
+if (sigma > 0) && (tau0 > 0) && (tau1 > 0)
+    lpost= logprior_theta(beta(1:34),0,1)+logprior_theta(beta(35:68),0,1)+loglikelihood(y_cell,logy,beta,x_cell,x,child)+logprior_tau(beta(73))+logprior_tau(beta(74))+logprior_sigma(beta(75));%logprior_mu(beta(69))+logprior_mu(beta(70))
+else
+    lpost = -inf;
+end
+end
+
+
+%%%%
+
+function H=HDI(h,coff)
+
+output=0;
+c=0;
+[a b]=max(h.Values);
+mode1=b*h.BinWidth+h.BinLimits(1);
+while(output<=1-coff)
+     c=c+1;
+     output=output+h.Values(c)*h.BinWidth;
+    [d f]=min (abs(h.Values(b:end)-h.Values(c)));
+     m=b+f-1;
+     output=output+h.Values(m)*h.BinWidth;
+    
+   
+end
+
+hdi_min=c*h.BinWidth+h.BinLimits(1);
+hdi_max=m*h.BinWidth+h.BinLimits(1);
+H=[hdi_min hdi_max];
+
+end
+
